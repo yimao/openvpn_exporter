@@ -1,6 +1,6 @@
 module openvpn_exporter
 
-go 1.19
+go 1.22
 
 require github.com/prometheus/client_golang v0.9.1
 

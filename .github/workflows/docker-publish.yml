@@ -19,16 +19,7 @@ env:
 
 jobs:
   Build-And-Publish:
-    strategy:
-      matrix:
-        os: [ "ubuntu-24.04" ]
-        goos: [linux]
-        goarch: [amd64]
-    runs-on: ${{ matrix.os }}
-    env:
-      GOOS: ${{ matrix.goos }}
-      GOARCH: ${{ matrix.goarch }}
-      CGO_ENABLED: 0
+    runs-on: ubuntu-24.04
     permissions:
       contents: read
       packages: write
@@ -39,15 +30,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
-      - name: Set up Go
-        uses: actions/setup-go@v5
-
-      - name: Get project dependencies
-        run: go mod download
-
-      - name: Go Build
-        run: go build -v -o openvpn_exporter -trimpath 
 
       # Set up BuildKit Docker container builder to be able to build
       # multi-platform images and export cache
@@ -78,7 +60,6 @@ jobs:
         id: build-and-push
         uses: docker/build-push-action@v6
         with:
-          platforms: ${{ matrix.goos }}/${{ matrix.goarch }}
           file: ./Dockerfile
           context: .
           push: true
