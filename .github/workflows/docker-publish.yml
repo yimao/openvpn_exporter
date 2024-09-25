@@ -33,6 +33,15 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+      
+      - name: Set up Go
+        uses: actions/setup-go@v4
+
+      - name: Get project dependencies
+        run: go mod download
+
+      - name: Go Build
+        run: GOARCH=amd64 GOOS=linux CGO_ENABLED=0 go build -trimpath -o openvpn_exporter 
 
       # Set up BuildKit Docker container builder to be able to build
       # multi-platform images and export cache
