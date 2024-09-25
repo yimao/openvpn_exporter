@@ -15,11 +15,11 @@ package main
 
 import (
 	"flag"
-	"github.com/kumina/openvpn_exporter/exporters"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"log"
 	"net/http"
+	"openvpn_exporter/exporters"
 	"strings"
 )
 
